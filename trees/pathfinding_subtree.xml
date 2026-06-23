@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Pathfinding Subtree
+  ====================
+  A reusable subtree focused purely on computing a path using A*.
+
+  This subtree can be embedded into other trees as:
+    <SubTree ID="Pathfinding"/>
+
+  It encapsulates:
+    1. Checking that the agent has a valid target
+    2. Computing the optimal A* path
+    3. Reporting the result
+
+  Algorithm: A* (A-Star) invented by Peter Hart, Nils Nilsson and Bertram Raphael
+  Published in IEEE Transactions on Systems Science and Cybernetics (1968)
+    f(n) = g(n) + h(n)
+    g(n) = cost from start to node n
+    h(n) = heuristic estimate from n to goal (octile distance)
+-->
+
+<root BTCPP_format="4">
+
+  <BehaviorTree ID="Pathfinding">
+
+    <Sequence name="ComputePathSequence">
+
+      <!-- Verify we have a target destination -->
+      <HasTarget name="CheckTargetExists"/>
+
+      <!-- Run the A* pathfinding algorithm -->
+      <ComputePath name="RunAStar" algorithm="astar"/>
+
+      <!-- Validate we got a valid path -->
+      <HasPath name="ValidatePath"/>
+
+    </Sequence>
+
+  </BehaviorTree>
+
+</root>

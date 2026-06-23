@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Groot2 Project Configuration
+  =============================
+  This file can be loaded by Groot2 to open the entire navigation project
+  with all behavior trees pre-configured.
+
+  Usage:
+    1. Open Groot2
+    2. File → Open Project → Select this file
+    3. All trees will be listed in the sidebar
+
+  Each tree can also be opened individually via File → Load Tree.
+-->
+
+<project>
+  <name>Navigation Behavior Tree Project</name>
+  <description>
+    Autonomous navigation using A* pathfinding algorithm with behavior trees.
+    Features:
+    - A* (A-Star) pathfinding on grid maps
+    - Reactive obstacle avoidance
+    - Real-time path replanning
+    - Groot2 live monitoring via ZMQ
+  </description>
+
+  <trees>
+    <tree name="Navigation Main"     path="../trees/navigation_main.xml"
+          description="Primary navigation tree with A* pathfinding"/>
+    <tree name="Pathfinding Subtree" path="../trees/pathfinding_subtree.xml"
+          description="Standalone A* path computation subtree"/>
+    <tree name="Obstacle Avoidance"  path="../trees/obstacle_avoidance_subtree.xml"
+          description="Reactive obstacle avoidance with exponential backoff"/>
+  </trees>
+
+  <editor>
+    <zmq_server_port>1667</zmq_server_port>
+    <zmq_status_port>1668</zmq_status_port>
+    <refresh_rate_ms>100</refresh_rate_ms>
+  </editor>
+
+  <custom_nodes>
+    <node name="HasTarget"          type="Condition"/>
+    <node name="HasPath"            type="Condition"/>
+    <node name="IsTargetReached"    type="Condition"/>
+    <node name="IsPathBlocked"      type="Condition"/>
+    <node name="IsObstacleNearby"   type="Condition"/>
+    <node name="SetTarget"          type="Action"/>
+    <node name="UpdateAgentPosition" type="Action"/>
+    <node name="ComputePath"        type="Action"/>
+    <node name="MoveToNextWaypoint" type="Action"/>
+    <node name="MoveToTarget"       type="Action"/>
+    <node name="RotateTowardTarget" type="Action"/>
+    <node name="WaitAtObstacle"     type="Action"/>
+    <node name="RecomputePath"      type="Action"/>
+  </custom_nodes>
+</project>

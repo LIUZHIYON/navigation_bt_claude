@@ -1,0 +1,13 @@
+build/
+cmake-build-*/
+.vs/
+.vscode/
+*.user
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+.DS_Store
+Thumbs.db
