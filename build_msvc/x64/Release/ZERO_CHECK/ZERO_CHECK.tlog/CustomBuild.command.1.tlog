@@ -1,0 +1,10 @@
+^E:\GROOT2_PROJECT\NAVIGATION_BT\BUILD_MSVC\CMAKEFILES\EB94CF9372319BB5D7FB3AE9DA4B4568\GENERATE.STAMP.RULE
+setlocal
+E:\anaconda3\Library\bin\cmake.exe -SE:/groot2_project/navigation_bt -BE:/groot2_project/navigation_bt/build_msvc --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file E:/groot2_project/navigation_bt/build_msvc/NavigationBT.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

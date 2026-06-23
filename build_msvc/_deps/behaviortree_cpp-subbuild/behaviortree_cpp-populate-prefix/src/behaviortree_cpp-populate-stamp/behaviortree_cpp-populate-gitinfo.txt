@@ -1,0 +1,15 @@
+# This is a generated file and its contents are an internal implementation detail.
+# The download step will be re-executed if anything in this file changes.
+# No other meaning or use of this file is supported.
+
+method=git
+command=E:/anaconda3/Library/bin/cmake.exe;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-subbuild/behaviortree_cpp-populate-prefix/tmp/behaviortree_cpp-populate-gitclone.cmake
+source_dir=E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-src
+work_dir=E:/groot2_project/navigation_bt/build_msvc/_deps
+repository=https://github.com/BehaviorTree/BehaviorTree.CPP.git
+remote=origin
+init_submodules=TRUE
+recurse_submodules=--recursive
+submodules=
+CMP0097=NEW
+      

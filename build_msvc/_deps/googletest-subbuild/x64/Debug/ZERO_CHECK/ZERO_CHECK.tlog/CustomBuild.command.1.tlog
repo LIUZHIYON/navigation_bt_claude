@@ -1,0 +1,10 @@
+^E:\GROOT2_PROJECT\NAVIGATION_BT\BUILD_MSVC\_DEPS\GOOGLETEST-SUBBUILD\CMAKEFILES\FC6FA69709466E759489FBCBA5F2DA73\GENERATE.STAMP.RULE
+setlocal
+E:\anaconda3\Library\bin\cmake.exe -SE:/groot2_project/navigation_bt/build_msvc/_deps/googletest-subbuild -BE:/groot2_project/navigation_bt/build_msvc/_deps/googletest-subbuild --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file E:/groot2_project/navigation_bt/build_msvc/_deps/googletest-subbuild/googletest-populate.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

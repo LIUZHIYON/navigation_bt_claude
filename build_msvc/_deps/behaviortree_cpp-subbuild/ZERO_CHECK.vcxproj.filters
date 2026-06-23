@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-subbuild\CMakeFiles\d823f70c60f1e4c84c6bf33b2e62eb33\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{7888F67F-A596-3362-A542-1F76C8CB3652}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\loggers\bt_zmq_publisher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\action_node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\basic_types.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\behavior_tree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\blackboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\bt_factory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\decorator_node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\condition_node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\control_node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\shared_library.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\tree_node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\script_parser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\xml_parsing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\decorators\inverter_node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\decorators\repeat_node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\decorators\retry_node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\decorators\subtree_node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\decorators\delay_node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\controls\if_then_else_node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\controls\fallback_node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\controls\parallel_node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\controls\reactive_sequence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\controls\reactive_fallback.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\controls\sequence_node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\controls\sequence_star_node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\controls\switch_node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\controls\while_do_else_node.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\loggers\bt_cout_logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\loggers\bt_file_logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\loggers\bt_minitrace_logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty\tinyxml2\tinyxml2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty\minitrace\minitrace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\src\shared_library_WIN.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{041682FB-1354-3322-82B1-174002A807AD}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

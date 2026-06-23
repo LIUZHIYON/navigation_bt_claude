@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root BTCPP_format="4" project_name="Project">
+    <include path="trees/navigation_main.xml"/>
+    <!-- Description of Node Models (used by Groot) -->
+    <TreeNodesModel>
+        <Action ID="ComputePath" editable="true">
+            <input_port name="algorithm"/>
+        </Action>
+        <Condition ID="HasPath" editable="true"/>
+        <Condition ID="HasTarget" editable="true"/>
+        <Condition ID="IsObstacleNearby" editable="true">
+            <input_port name="scan_radius"/>
+        </Condition>
+        <Condition ID="IsPathBlocked" editable="true"/>
+        <Condition ID="IsTargetReached" editable="true">
+            <input_port name="reach_threshold"/>
+        </Condition>
+        <Action ID="MoveToNextWaypoint" editable="true">
+            <input_port name="speed"/>
+        </Action>
+        <Action ID="MoveToTarget" editable="true"/>
+        <Action ID="RecomputePath" editable="true"/>
+        <Action ID="RotateTowardTarget" editable="true"/>
+        <Action ID="UpdateAgentPosition" editable="true"/>
+        <Action ID="WaitAtObstacle" editable="true">
+            <input_port name="wait_max"/>
+        </Action>
+    </TreeNodesModel>
+</root>

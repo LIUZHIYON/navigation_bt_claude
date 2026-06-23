@@ -1,0 +1,479 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9B6C3783-66C0-37E5-B56E-80F9973F6440}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>behaviortree_cpp_test</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\tests\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">behaviortree_cpp_test.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">behaviortree_cpp_test</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\tests\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">behaviortree_cpp_test.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">behaviortree_cpp_test</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\tests\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">behaviortree_cpp_test.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">behaviortree_cpp_test</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\tests\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">behaviortree_cpp_test.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">behaviortree_cpp_test</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-src/3rdparty/lexy/src/../include" /external:I "E:/groot2_project/navigation_bt/build_msvc/_deps/googletest-src/googletest/include" /external:I "E:/groot2_project/navigation_bt/build_msvc/_deps/googletest-src/googletest" /utf-8</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;BT_TEST_FOLDER="E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-src/tests";_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;BT_BOOST_COROUTINE2;ZMQ_FOUND;LEXY_HAS_UNICODE_DATABASE=1;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;BT_TEST_FOLDER=\"E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-src/tests\";_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;BT_BOOST_COROUTINE2;ZMQ_FOUND;LEXY_HAS_UNICODE_DATABASE=1;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty\lexy\src\..\include;E:\groot2_project\navigation_bt\build_msvc\_deps\googletest-src\googletest\include;E:\groot2_project\navigation_bt\build_msvc\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty\lexy\src\..\include;E:\groot2_project\navigation_bt\build_msvc\_deps\googletest-src\googletest\include;E:\groot2_project\navigation_bt\build_msvc\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+E:\anaconda3\Library\bin\cmake.exe -E copy_directory E:/groot2_project/navigation_bt/tests/trees trees
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\sample_nodes\lib\Debug\bt_sample_nodes.lib;..\..\..\lib\Debug\gtest.lib;..\..\..\lib\Debug\gtest_main.lib;..\3rdparty\lexy\src\Debug\lexy_file.lib;..\Debug\behaviortree_cppd.lib;..\..\..\lib\Debug\gtest.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <DataExecutionPrevention></DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-build/tests/Debug/behaviortree_cpp_test.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-build/tests/Debug/behaviortree_cpp_test.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-src/3rdparty/lexy/src/../include" /external:I "E:/groot2_project/navigation_bt/build_msvc/_deps/googletest-src/googletest/include" /external:I "E:/groot2_project/navigation_bt/build_msvc/_deps/googletest-src/googletest" /utf-8</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BT_TEST_FOLDER="E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-src/tests";_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;BT_BOOST_COROUTINE2;ZMQ_FOUND;LEXY_HAS_UNICODE_DATABASE=1;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BT_TEST_FOLDER=\"E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-src/tests\";_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;BT_BOOST_COROUTINE2;ZMQ_FOUND;LEXY_HAS_UNICODE_DATABASE=1;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty\lexy\src\..\include;E:\groot2_project\navigation_bt\build_msvc\_deps\googletest-src\googletest\include;E:\groot2_project\navigation_bt\build_msvc\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty\lexy\src\..\include;E:\groot2_project\navigation_bt\build_msvc\_deps\googletest-src\googletest\include;E:\groot2_project\navigation_bt\build_msvc\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+E:\anaconda3\Library\bin\cmake.exe -E copy_directory E:/groot2_project/navigation_bt/tests/trees trees
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\sample_nodes\lib\Release\bt_sample_nodes.lib;..\..\..\lib\Release\gtest.lib;..\..\..\lib\Release\gtest_main.lib;..\3rdparty\lexy\src\Release\lexy_file.lib;..\Release\behaviortree_cpp.lib;..\..\..\lib\Release\gtest.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <DataExecutionPrevention></DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-build/tests/Release/behaviortree_cpp_test.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-build/tests/Release/behaviortree_cpp_test.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-src/3rdparty/lexy/src/../include" /external:I "E:/groot2_project/navigation_bt/build_msvc/_deps/googletest-src/googletest/include" /external:I "E:/groot2_project/navigation_bt/build_msvc/_deps/googletest-src/googletest" /utf-8</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BT_TEST_FOLDER="E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-src/tests";_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;BT_BOOST_COROUTINE2;ZMQ_FOUND;LEXY_HAS_UNICODE_DATABASE=1;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BT_TEST_FOLDER=\"E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-src/tests\";_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;BT_BOOST_COROUTINE2;ZMQ_FOUND;LEXY_HAS_UNICODE_DATABASE=1;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty\lexy\src\..\include;E:\groot2_project\navigation_bt\build_msvc\_deps\googletest-src\googletest\include;E:\groot2_project\navigation_bt\build_msvc\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty\lexy\src\..\include;E:\groot2_project\navigation_bt\build_msvc\_deps\googletest-src\googletest\include;E:\groot2_project\navigation_bt\build_msvc\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+E:\anaconda3\Library\bin\cmake.exe -E copy_directory E:/groot2_project/navigation_bt/tests/trees trees
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\sample_nodes\lib\MinSizeRel\bt_sample_nodes.lib;..\..\..\lib\MinSizeRel\gtest.lib;..\..\..\lib\MinSizeRel\gtest_main.lib;..\3rdparty\lexy\src\MinSizeRel\lexy_file.lib;..\MinSizeRel\behaviortree_cpp.lib;..\..\..\lib\MinSizeRel\gtest.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <DataExecutionPrevention></DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-build/tests/MinSizeRel/behaviortree_cpp_test.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-build/tests/MinSizeRel/behaviortree_cpp_test.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-src/3rdparty/lexy/src/../include" /external:I "E:/groot2_project/navigation_bt/build_msvc/_deps/googletest-src/googletest/include" /external:I "E:/groot2_project/navigation_bt/build_msvc/_deps/googletest-src/googletest" /utf-8</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BT_TEST_FOLDER="E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-src/tests";_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;BT_BOOST_COROUTINE2;ZMQ_FOUND;LEXY_HAS_UNICODE_DATABASE=1;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;BT_TEST_FOLDER=\"E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-src/tests\";_CRT_SECURE_NO_WARNINGS;WIN32_LEAN_AND_MEAN;BT_BOOST_COROUTINE2;ZMQ_FOUND;LEXY_HAS_UNICODE_DATABASE=1;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty\lexy\src\..\include;E:\groot2_project\navigation_bt\build_msvc\_deps\googletest-src\googletest\include;E:\groot2_project\navigation_bt\build_msvc\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\include;E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\3rdparty\lexy\src\..\include;E:\groot2_project\navigation_bt\build_msvc\_deps\googletest-src\googletest\include;E:\groot2_project\navigation_bt\build_msvc\_deps\googletest-src\googletest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+E:\anaconda3\Library\bin\cmake.exe -E copy_directory E:/groot2_project/navigation_bt/tests/trees trees
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalDependencies>..\sample_nodes\lib\RelWithDebInfo\bt_sample_nodes.lib;..\..\..\lib\RelWithDebInfo\gtest.lib;..\..\..\lib\RelWithDebInfo\gtest_main.lib;..\3rdparty\lexy\src\RelWithDebInfo\lexy_file.lib;..\RelWithDebInfo\behaviortree_cpp.lib;..\..\..\lib\RelWithDebInfo\gtest.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <DataExecutionPrevention></DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-build/tests/RelWithDebInfo/behaviortree_cpp_test.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-build/tests/RelWithDebInfo/behaviortree_cpp_test.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-src/tests/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+E:\anaconda3\Library\bin\cmake.exe -SE:/groot2_project/navigation_bt -BE:/groot2_project/navigation_bt/build_msvc --check-stamp-file E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-build/tests/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\tests\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-src/tests/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+E:\anaconda3\Library\bin\cmake.exe -SE:/groot2_project/navigation_bt -BE:/groot2_project/navigation_bt/build_msvc --check-stamp-file E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-build/tests/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\tests\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-src/tests/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+E:\anaconda3\Library\bin\cmake.exe -SE:/groot2_project/navigation_bt -BE:/groot2_project/navigation_bt/build_msvc --check-stamp-file E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-build/tests/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\tests\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-src/tests/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+E:\anaconda3\Library\bin\cmake.exe -SE:/groot2_project/navigation_bt -BE:/groot2_project/navigation_bt/build_msvc --check-stamp-file E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-build/tests/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\tests\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\src\action_test_node.cpp" />
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\src\condition_test_node.cpp" />
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest_tree.cpp" />
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest_sequence.cpp" />
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest_parallel.cpp" />
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest_fallback.cpp" />
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest_factory.cpp" />
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest_decorator.cpp" />
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest_blackboard.cpp" />
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest_preconditions.cpp" />
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest_postconditions.cpp" />
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest_ports.cpp" />
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest_skipping.cpp" />
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest_subtree.cpp" />
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest_switch.cpp" />
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest_wakeup.cpp" />
+    <ClInclude Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\test_helper.hpp" />
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\script_parser_test.cpp" />
+    <ClCompile Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-src\tests\gtest_coroutines.cpp" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\ZERO_CHECK.vcxproj">
+      <Project>{96289C91-CB9B-3E00-A869-943598CAAB20}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\behaviortree_cpp.vcxproj">
+      <Project>{4B091DA1-71DB-3970-A259-59D096D23479}</Project>
+      <Name>behaviortree_cpp</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\sample_nodes\bt_sample_nodes.vcxproj">
+      <Project>{AAC6B795-529D-3CE5-B25D-975246C07059}</Project>
+      <Name>bt_sample_nodes</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\googletest-build\googletest\gtest.vcxproj">
+      <Project>{824648E8-D2E9-34E4-8764-44EFF024EB14}</Project>
+      <Name>gtest</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\googletest-build\googletest\gtest_main.vcxproj">
+      <Project>{2FCF610B-C840-3939-87CF-B3EB6AB3FEB4}</Project>
+      <Name>gtest_main</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\3rdparty\lexy\src\lexy_file.vcxproj">
+      <Project>{81CF0E6C-BCB2-3F01-9422-A54318879588}</Project>
+      <Name>lexy_file</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,10 @@
+^E:\GROOT2_PROJECT\NAVIGATION_BT\BUILD_MSVC\_DEPS\BEHAVIORTREE_CPP-SRC\CMAKELISTS.TXT
+setlocal
+E:\anaconda3\Library\bin\cmake.exe -SE:/groot2_project/navigation_bt -BE:/groot2_project/navigation_bt/build_msvc --check-stamp-file E:/groot2_project/navigation_bt/build_msvc/_deps/behaviortree_cpp-build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

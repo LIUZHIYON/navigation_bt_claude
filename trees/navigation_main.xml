@@ -3,74 +3,64 @@
 <!--
   Navigation Main Behavior Tree
   ==============================
-  Primary behavior tree for autonomous navigation using A* pathfinding.
+  Autonomous navigation using A* (A-Star) pathfinding.
 
-  How to open in Groot2:
-    1. Launch Groot2
-    2. File → Load Tree → Select this file
+  Open in Groot2: File → Load Tree → Select this file
 
-  Algorithm: A* (A-Star) Pathfinding
-    f(n) = g(n) + h(n)
-    Heuristic: Octile distance
-    Reference: Hart, Nilsson & Raphael (1968)
+  Algorithm: A* (A-Star) — Hart, Nilsson & Raphael (1968)
+    f(n) = g(n) + h(n), Octile heuristic, O(E log V)
 -->
 
 <root BTCPP_format="4" main_tree_to_execute="NavigationMain">
 
-  <!-- ============================================================ -->
-  <!-- Main Navigation Tree                                         -->
-  <!-- ============================================================ -->
   <BehaviorTree ID="NavigationMain">
 
-    <!-- Retry until agent reaches target -->
+    <!-- Retry until agent reaches the target -->
     <RetryUntilSuccessful num_attempts="-1">
 
       <Sequence name="MainSequence">
 
-        <!-- STEP 1: Update agent position -->
+        <!-- 1. Update position from sensors -->
         <UpdateAgentPosition name="UpdateSensors"/>
 
-        <!-- STEP 2: Verify we have a target -->
+        <!-- 2. Make sure we have a target -->
         <HasTarget name="CheckTarget"/>
 
-        <!-- STEP 3: Compute optimal A* path -->
-        <ComputePath name="ComputeAStarPath" algorithm="astar"/>
+        <!-- 3. Do one navigation step this tick -->
+        <Fallback name="EnsurePathAndMove">
 
-        <!-- STEP 4: Follow path waypoints until blocked or done -->
-        <ReactiveSequence name="FollowPathLoop">
+          <!-- CASE A: Already have a path? → walk one step -->
+          <Sequence name="MoveAlongPath">
+            <HasPath name="HasRemainingPath"/>
 
-          <!-- Still have waypoints remaining? -->
-          <HasPath name="HasRemainingPath"/>
+            <!-- Move or handle obstacle -->
+            <Fallback name="MoveOrWait">
 
-          <!-- Is the path ahead clear? -->
-          <Inverter name="PathClear">
-            <IsPathBlocked name="CheckNextBlocked"/>
-          </Inverter>
+              <!-- A1: Obstacle nearby? → wait (with backoff) -->
+              <Sequence name="AvoidObstacle">
+                <IsObstacleNearby name="DetectObstacle" scan_radius="1"/>
+                <WaitAtObstacle name="BackoffWait" wait_max="2"/>
+              </Sequence>
 
-          <!-- Move or handle obstacle -->
-          <Fallback name="MoveOrHandleObstacle">
+              <!-- A2: Path ahead blocked? → recompute -->
+              <Sequence name="ReplanIfBlocked">
+                <IsPathBlocked name="CheckPathBlocked"/>
+                <RecomputePath name="RecomputeBlockedPath"/>
+              </Sequence>
 
-            <!-- Branch A: Obstacle detected → wait → recompute -->
-            <Sequence name="HandleObstacle">
-              <IsObstacleNearby name="ObstacleDetected" scan_radius="1"/>
-              <WaitAtObstacle name="BackoffWait" wait_max="3"/>
-              <RecomputePath name="RecomputeAfterWait"/>
-            </Sequence>
+              <!-- A3: Normal step forward -->
+              <MoveToNextWaypoint name="StepForward" speed="1.0"/>
 
-            <!-- Branch B: Normal step-by-step movement -->
-            <Sequence name="NormalMovement">
-              <MoveToNextWaypoint name="StepToWaypoint" speed="1.0"/>
-            </Sequence>
+            </Fallback>
+          </Sequence>
 
-            <!-- Branch C: Direct movement fallback -->
-            <MoveToTarget name="DirectMoveFallback"/>
+          <!-- CASE B: No path → compute one with A* -->
+          <ComputePath name="ComputeAStarPath" algorithm="astar"/>
 
-          </Fallback>
+        </Fallback>
 
-        </ReactiveSequence>
-
-        <!-- STEP 5: Confirm arrival -->
-        <IsTargetReached name="VerifyArrival" reach_threshold="1.5"/>
+        <!-- 4. Arrived at target? -->
+        <IsTargetReached name="VerifyArrival" reach_threshold="1.0"/>
 
       </Sequence>
 
@@ -79,61 +69,8 @@
   </BehaviorTree>
 
   <!-- ============================================================ -->
-  <!-- Obstacle Avoidance Standalone Subtree                        -->
+  <!-- Node Models (for Groot meta-info)                            -->
   <!-- ============================================================ -->
-  <BehaviorTree ID="ObstacleAvoidance">
-
-    <ReactiveSequence name="ObstacleHandling">
-
-      <HasPath name="HasWaypoints"/>
-
-      <Fallback name="MoveSafely">
-
-        <!-- Priority 1: Obstacle avoidance -->
-        <KeepRunningUntilFailure>
-          <Sequence name="AvoidIfNeeded">
-
-            <IsObstacleNearby name="ScanForObstacles" scan_radius="2"/>
-
-            <Fallback name="AvoidanceStrategy">
-
-              <!-- Strategy A: Rotate → check forward clear → move -->
-              <Sequence name="RotateAndMove">
-                <RotateTowardTarget name="FaceTarget"/>
-                <Inverter name="ForwardClear">
-                  <IsPathBlocked name="CheckForwardBlocked"/>
-                </Inverter>
-                <MoveToNextWaypoint name="MoveAfterRotate"/>
-              </Sequence>
-
-              <!-- Strategy B: Recompute A* path -->
-              <Sequence name="ReplanPath">
-                <RecomputePath name="AStarReplan"/>
-              </Sequence>
-
-              <!-- Strategy C: Wait with exponential backoff -->
-              <WaitAtObstacle name="ExponentialBackoff" wait_max="5"/>
-
-            </Fallback>
-
-          </Sequence>
-        </KeepRunningUntilFailure>
-
-        <!-- Priority 2: Normal movement -->
-        <Sequence name="NormalStep">
-          <Inverter name="IsClear">
-            <IsPathBlocked name="CheckClear"/>
-          </Inverter>
-          <MoveToNextWaypoint name="StepForward" speed="1.0"/>
-        </Sequence>
-
-      </Fallback>
-
-    </ReactiveSequence>
-
-  </BehaviorTree>
-
-  <!-- Description of Node Models (used by Groot) -->
   <TreeNodesModel>
     <Action ID="ComputePath" editable="true">
       <input_port name="algorithm"/>

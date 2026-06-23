@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ResolveNugetPackages>false</ResolveNugetPackages>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B02E576A-7BFA-31CA-A023-E550A5AE0947}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>ALL_BUILD</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\groot2_project\navigation_bt\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule E:/groot2_project/navigation_bt/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+E:\anaconda3\Library\bin\cmake.exe -SE:/groot2_project/navigation_bt -BE:/groot2_project/navigation_bt/build_msvc --check-stamp-file E:/groot2_project/navigation_bt/build_msvc/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeCXXInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeCommonLanguageInclude.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeGenericSystem.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeInitializeConfigs.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeLanguageInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeParseImplicitLinkInfo.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeRCInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeSystemSpecificInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeSystemSpecificInitialize.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Compiler\CMakeCommonCompilerMacros.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Compiler\MSVC-CXX.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Compiler\MSVC.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\ExternalProject\shared_internal_commands.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\FetchContent.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\FetchContent\CMakeLists.cmake.in;E:\anaconda3\Library\share\cmake-4.3\Modules\FindGit.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\FindOpenMP.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\FindPackageHandleStandardArgs.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\FindPackageMessage.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Internal\CMakeCXXLinkerInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Internal\CMakeCommonLinkerInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Linker\MSVC-CXX.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Linker\MSVC.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Linker\Windows-MSVC.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Windows-Initialize.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Windows-MSVC-CXX.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Windows-MSVC.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Windows.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\WindowsPaths.cmake;E:\groot2_project\navigation_bt\build_msvc\CMakeFiles\4.3.4\CMakeCXXCompiler.cmake;E:\groot2_project\navigation_bt\build_msvc\CMakeFiles\4.3.4\CMakeRCCompiler.cmake;E:\groot2_project\navigation_bt\build_msvc\CMakeFiles\4.3.4\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\groot2_project\navigation_bt\build_msvc\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule E:/groot2_project/navigation_bt/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+E:\anaconda3\Library\bin\cmake.exe -SE:/groot2_project/navigation_bt -BE:/groot2_project/navigation_bt/build_msvc --check-stamp-file E:/groot2_project/navigation_bt/build_msvc/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeCXXInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeCommonLanguageInclude.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeGenericSystem.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeInitializeConfigs.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeLanguageInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeParseImplicitLinkInfo.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeRCInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeSystemSpecificInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeSystemSpecificInitialize.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Compiler\CMakeCommonCompilerMacros.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Compiler\MSVC-CXX.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Compiler\MSVC.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\ExternalProject\shared_internal_commands.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\FetchContent.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\FetchContent\CMakeLists.cmake.in;E:\anaconda3\Library\share\cmake-4.3\Modules\FindGit.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\FindOpenMP.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\FindPackageHandleStandardArgs.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\FindPackageMessage.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Internal\CMakeCXXLinkerInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Internal\CMakeCommonLinkerInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Linker\MSVC-CXX.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Linker\MSVC.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Linker\Windows-MSVC.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Windows-Initialize.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Windows-MSVC-CXX.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Windows-MSVC.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Windows.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\WindowsPaths.cmake;E:\groot2_project\navigation_bt\build_msvc\CMakeFiles\4.3.4\CMakeCXXCompiler.cmake;E:\groot2_project\navigation_bt\build_msvc\CMakeFiles\4.3.4\CMakeRCCompiler.cmake;E:\groot2_project\navigation_bt\build_msvc\CMakeFiles\4.3.4\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\groot2_project\navigation_bt\build_msvc\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule E:/groot2_project/navigation_bt/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+E:\anaconda3\Library\bin\cmake.exe -SE:/groot2_project/navigation_bt -BE:/groot2_project/navigation_bt/build_msvc --check-stamp-file E:/groot2_project/navigation_bt/build_msvc/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeCXXInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeCommonLanguageInclude.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeGenericSystem.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeInitializeConfigs.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeLanguageInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeParseImplicitLinkInfo.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeRCInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeSystemSpecificInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeSystemSpecificInitialize.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Compiler\CMakeCommonCompilerMacros.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Compiler\MSVC-CXX.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Compiler\MSVC.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\ExternalProject\shared_internal_commands.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\FetchContent.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\FetchContent\CMakeLists.cmake.in;E:\anaconda3\Library\share\cmake-4.3\Modules\FindGit.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\FindOpenMP.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\FindPackageHandleStandardArgs.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\FindPackageMessage.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Internal\CMakeCXXLinkerInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Internal\CMakeCommonLinkerInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Linker\MSVC-CXX.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Linker\MSVC.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Linker\Windows-MSVC.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Windows-Initialize.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Windows-MSVC-CXX.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Windows-MSVC.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Windows.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\WindowsPaths.cmake;E:\groot2_project\navigation_bt\build_msvc\CMakeFiles\4.3.4\CMakeCXXCompiler.cmake;E:\groot2_project\navigation_bt\build_msvc\CMakeFiles\4.3.4\CMakeRCCompiler.cmake;E:\groot2_project\navigation_bt\build_msvc\CMakeFiles\4.3.4\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\groot2_project\navigation_bt\build_msvc\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule E:/groot2_project/navigation_bt/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+E:\anaconda3\Library\bin\cmake.exe -SE:/groot2_project/navigation_bt -BE:/groot2_project/navigation_bt/build_msvc --check-stamp-file E:/groot2_project/navigation_bt/build_msvc/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeCXXInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeCommonLanguageInclude.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeGenericSystem.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeInitializeConfigs.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeLanguageInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeParseImplicitLinkInfo.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeRCInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeSystemSpecificInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\CMakeSystemSpecificInitialize.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Compiler\CMakeCommonCompilerMacros.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Compiler\MSVC-CXX.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Compiler\MSVC.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\ExternalProject\shared_internal_commands.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\FetchContent.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\FetchContent\CMakeLists.cmake.in;E:\anaconda3\Library\share\cmake-4.3\Modules\FindGit.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\FindOpenMP.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\FindPackageHandleStandardArgs.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\FindPackageMessage.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Internal\CMakeCXXLinkerInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Internal\CMakeCommonLinkerInformation.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Linker\MSVC-CXX.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Linker\MSVC.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Linker\Windows-MSVC.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Windows-Initialize.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Windows-MSVC-CXX.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Windows-MSVC.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\Windows.cmake;E:\anaconda3\Library\share\cmake-4.3\Modules\Platform\WindowsPaths.cmake;E:\groot2_project\navigation_bt\build_msvc\CMakeFiles\4.3.4\CMakeCXXCompiler.cmake;E:\groot2_project\navigation_bt\build_msvc\CMakeFiles\4.3.4\CMakeRCCompiler.cmake;E:\groot2_project\navigation_bt\build_msvc\CMakeFiles\4.3.4\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\groot2_project\navigation_bt\build_msvc\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\ZERO_CHECK.vcxproj">
+      <Project>{96289C91-CB9B-3E00-A869-943598CAAB20}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\behaviortree_cpp.vcxproj">
+      <Project>{4B091DA1-71DB-3970-A259-59D096D23479}</Project>
+      <Name>behaviortree_cpp</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\tests\behaviortree_cpp_test.vcxproj">
+      <Project>{9B6C3783-66C0-37E5-B56E-80F9973F6440}</Project>
+      <Name>behaviortree_cpp_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\tools\bt3_log_cat.vcxproj">
+      <Project>{0A56AA35-FD5B-3D7B-B056-40E531903678}</Project>
+      <Name>bt3_log_cat</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\tools\bt3_plugin_manifest.vcxproj">
+      <Project>{2D57D7B6-B40A-31E6-9945-5119E695CD63}</Project>
+      <Name>bt3_plugin_manifest</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\tools\bt3_recorder.vcxproj">
+      <Project>{7E0CA2AB-5C8D-3C16-AF2B-FFA1EC6DF610}</Project>
+      <Name>bt3_recorder</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\sample_nodes\bt_sample_nodes.vcxproj">
+      <Project>{AAC6B795-529D-3CE5-B25D-975246C07059}</Project>
+      <Name>bt_sample_nodes</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\sample_nodes\crossdoor_nodes_dyn.vcxproj">
+      <Project>{388115B2-D4E7-3091-8F17-EF6AE0CD85DF}</Project>
+      <Name>crossdoor_nodes_dyn</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\sample_nodes\dummy_nodes_dyn.vcxproj">
+      <Project>{535F7921-8694-3282-BA68-2C162BD74279}</Project>
+      <Name>dummy_nodes_dyn</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\examples\ex01_wrap_legacy.vcxproj">
+      <Project>{5F684EED-F6BF-392E-9CA1-4EBBF3A09AAD}</Project>
+      <Name>ex01_wrap_legacy</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\examples\ex02_runtime_ports.vcxproj">
+      <Project>{D1BE7918-5692-3A49-BF40-942E32AA294C}</Project>
+      <Name>ex02_runtime_ports</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\examples\ex03_ncurses_manual_selector.vcxproj">
+      <Project>{95BB3967-2D4A-3332-A5E6-33501F382852}</Project>
+      <Name>ex03_ncurses_manual_selector</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\examples\ex04_waypoints.vcxproj">
+      <Project>{63C1F247-91BD-3535-8EC6-0537662E16C1}</Project>
+      <Name>ex04_waypoints</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\googletest-build\googletest\gtest.vcxproj">
+      <Project>{824648E8-D2E9-34E4-8764-44EFF024EB14}</Project>
+      <Name>gtest</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\googletest-build\googletest\gtest_main.vcxproj">
+      <Project>{2FCF610B-C840-3939-87CF-B3EB6AB3FEB4}</Project>
+      <Name>gtest_main</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\3rdparty\lexy\src\lexy_file.vcxproj">
+      <Project>{81CF0E6C-BCB2-3F01-9422-A54318879588}</Project>
+      <Name>lexy_file</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\sample_nodes\movebase_node_dyn.vcxproj">
+      <Project>{994F76F6-D223-32A4-AA51-BD2BDA131985}</Project>
+      <Name>movebase_node_dyn</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\navigation_bt_nodes.vcxproj">
+      <Project>{8706BD93-920C-3703-B2E1-C574FC34780A}</Project>
+      <Name>navigation_bt_nodes</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\navigation_demo.vcxproj">
+      <Project>{A06E0866-275E-398E-BB52-F84894B2049C}</Project>
+      <Name>navigation_demo</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\examples\t01_first_tree_dynamic.vcxproj">
+      <Project>{7EC8E27F-6FDC-308E-B11F-2BA4854625EE}</Project>
+      <Name>t01_first_tree_dynamic</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\examples\t01_first_tree_static.vcxproj">
+      <Project>{6876F606-0036-3F93-A15B-E313F3FA77C9}</Project>
+      <Name>t01_first_tree_static</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\examples\t02_basic_ports.vcxproj">
+      <Project>{8133BEA3-39F0-30E8-A1BC-68C4765A7EC1}</Project>
+      <Name>t02_basic_ports</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\examples\t03_generic_ports.vcxproj">
+      <Project>{F526AD27-5D77-3C28-AAE3-B769C429BFA1}</Project>
+      <Name>t03_generic_ports</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\examples\t04_reactive_sequence.vcxproj">
+      <Project>{9841BEAD-D181-305D-9E9A-DD05DCA8607B}</Project>
+      <Name>t04_reactive_sequence</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\examples\t05_crossdoor.vcxproj">
+      <Project>{7C814F0F-E97F-3A22-BB6E-23D964C27C93}</Project>
+      <Name>t05_crossdoor</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\examples\t06_subtree_port_remapping.vcxproj">
+      <Project>{74108037-90C3-3E16-95FC-0A9942C78A10}</Project>
+      <Name>t06_subtree_port_remapping</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\examples\t07_load_multiple_xml.vcxproj">
+      <Project>{9B9AAC90-A3CF-3F3A-A063-2BE2B496279B}</Project>
+      <Name>t07_load_multiple_xml</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\examples\t08_additional_node_args.vcxproj">
+      <Project>{FA6A84D1-A70E-35A4-B769-7EC19E2A3040}</Project>
+      <Name>t08_additional_node_args</Name>
+    </ProjectReference>
+    <ProjectReference Include="E:\groot2_project\navigation_bt\build_msvc\_deps\behaviortree_cpp-build\examples\t09_scripting.vcxproj">
+      <Project>{C9EB68BC-6B63-3BDD-B190-FC2D486F7152}</Project>
+      <Name>t09_scripting</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
