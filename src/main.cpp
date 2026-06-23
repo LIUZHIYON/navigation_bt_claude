@@ -14,44 +14,23 @@
  *
  *   Default tree:  ../trees/navigation_main.xml
  *   Default map:   ../maps/sample_map.txt
- *
- * Groot2 real-time monitoring:
- *   The program starts a ZMQ publisher on port 1667 (default).
- *   Open Groot2, connect to tcp://localhost:1667 to see the tree executing live.
  */
 
-#include <behaviortree_cpp/behavior_tree.h>
 #include <behaviortree_cpp/bt_factory.h>
-#include <behaviortree_cpp/loggers/bt_zmq_publisher.h>
 #include <behaviortree_cpp/loggers/bt_cout_logger.h>
 
 #include "core/types.h"
 #include "core/grid_map.h"
 #include "algorithms/astar.h"
-#include "bt_nodes/condition_nodes.h"
 #include "bt_nodes/navigation_nodes.h"
 
 #include <iostream>
 #include <string>
 #include <thread>
 #include <chrono>
-#include <cstdlib>
+#include <stdexcept>
 
 using namespace nav_bt;
-
-// ============================================================
-// Helper: Print a banner
-// ============================================================
-void printBanner() {
-    std::cout << R"(
-╔══════════════════════════════════════════════════════════╗
-║     Navigation Behavior Tree Demo                       ║
-║     Algorithm: A* (A-Star) Pathfinding                  ║
-║     Framework: BehaviorTree.CPP v4                      ║
-║     Groot2 Compatible                                   ║
-╚══════════════════════════════════════════════════════════╝
-)" << std::endl;
-}
 
 // ============================================================
 // Helper: Print search statistics
@@ -67,58 +46,25 @@ void printStats(const AStarStats& stats) {
     std::cout << "============================\n\n";
 }
 
-// ============================================================
-// Helper: Generate a sample map if no file provided
-// ============================================================
-void generateSampleMap(GridMap& map) {
-    const int W = 25;
-    const int H = 15;
-    map = GridMap(W, H);
-
-    // Place obstacles to create a maze-like environment
-    auto addWall = [&](int x1, int y1, int x2, int y2) {
-        for (int y = y1; y <= y2; ++y)
-            for (int x = x1; x <= x2; ++x)
-                map.setObstacle(x, y, true);
-    };
-
-    // Outer walls
-    addWall(0, 0, W-1, 0);           // top
-    addWall(0, H-1, W-1, H-1);       // bottom
-    addWall(0, 0, 0, H-1);           // left
-    addWall(W-1, 0, W-1, H-1);       // right
-
-    // Internal obstacles — create a simple maze
-    addWall(5, 2, 5, 5);             // vertical wall
-    addWall(8, 4, 12, 4);            // horizontal wall
-    addWall(15, 1, 15, 8);           // vertical wall
-    addWall(3, 8, 10, 8);            // horizontal wall
-    addWall(12, 6, 12, 12);          // vertical wall
-    addWall(10, 10, 20, 10);         // horizontal wall
-    addWall(18, 2, 18, 7);           // vertical wall
-    addWall(20, 4, 23, 4);           // small horizontal
-
-    // Add some "rough terrain" (higher traversal cost)
-    map.setCellCost(7, 6, 3.0);
-    map.setCellCost(7, 7, 3.0);
-    map.setCellCost(7, 9, 3.0);
-    map.setCellCost(16, 9, 3.0);
-    map.setCellCost(17, 9, 3.0);
-
-    // Set start (accessible)
-    map.setCellType(2, 2, CellType::START);
-
-    // Set goal (accessible)
-    map.setCellType(22, 12, CellType::GOAL);
-
-    std::cout << "[Main] Generated sample map " << W << "x" << H << "\n";
+/// Safe blackboard get helper
+template <typename T>
+bool safeGet(const BT::Blackboard::Ptr& bb, const std::string& key, T& out) {
+    try { out = bb->get<T>(key); return true; }
+    catch (...) { return false; }
 }
 
 // ============================================================
 // Main
 // ============================================================
 int main(int argc, char* argv[]) {
-    printBanner();
+    std::cout << R"(
+==============================================================
+  Navigation Behavior Tree Demo
+  Algorithm: A* (A-Star) Pathfinding
+  Framework: BehaviorTree.CPP v4
+  Groot2 Compatible
+==============================================================
+)" << std::endl;
 
     // --- Parse arguments ---
     std::string treeFile = "../trees/navigation_main.xml";
@@ -127,21 +73,31 @@ int main(int argc, char* argv[]) {
     if (argc > 1) treeFile = argv[1];
     if (argc > 2) mapFile  = argv[2];
 
-    // --- Setup map ---
+    // --- Load map ---
     GridMap gridMap;
-    bool mapLoaded = gridMap.loadFromFile(mapFile);
-    if (!mapLoaded) {
-        std::cout << "[Main] Could not load map file: " << mapFile << "\n";
-        std::cout << "[Main] Generating sample map instead.\n";
-        generateSampleMap(gridMap);
-        // Save it for future use
-        gridMap.saveToFile(mapFile);
-        std::cout << "[Main] Sample map saved to: " << mapFile << "\n";
+    if (!gridMap.loadFromFile(mapFile)) {
+        std::cerr << "[Main] ERROR: Cannot load map: " << mapFile << "\n";
+        return 1;
     }
 
-    std::cout << "\n[Main] Map:\n";
+    std::cout << "\n[Main] Map loaded (" << gridMap.width()
+              << "x" << gridMap.height() << "):\n";
     gridMap.print();
     std::cout << "\n";
+
+    // --- Find start/goal positions ---
+    Point start(1, 1), goal(gridMap.width()-2, gridMap.height()-2);
+    bool foundStart = false, foundGoal = false;
+    for (int y = 0; y < gridMap.height(); ++y) {
+        for (int x = 0; x < gridMap.width(); ++x) {
+            if (gridMap.cellType(x, y) == CellType::START) {
+                start = Point(x, y); foundStart = true;
+            }
+            if (gridMap.cellType(x, y) == CellType::GOAL) {
+                goal = Point(x, y); foundGoal = true;
+            }
+        }
+    }
 
     // --- Setup A* pathfinder ---
     AStarPathfinder pathfinder;
@@ -151,43 +107,23 @@ int main(int argc, char* argv[]) {
     pathfinder.setHeuristic(heuristic::octile);
 
     // --- Test A* directly ---
-    std::cout << "[Main] Running A* directly as a test...\n";
-    Point start(2, 2);
-    Point goal(22, 12);
-
-    // Override with map values if loaded from file
-    for (int y = 0; y < gridMap.height(); ++y) {
-        for (int x = 0; x < gridMap.width(); ++x) {
-            if (gridMap.cellType(x, y) == CellType::START) start = Point(x, y);
-            if (gridMap.cellType(x, y) == CellType::GOAL)  goal  = Point(x, y);
-        }
-    }
-
+    std::cout << "[Main] Running A* directly from " << start << " to " << goal << "...\n";
     Path testPath;
     AStarStats testStats;
-    bool found = pathfinder.findPath(start, goal, testPath, &testStats);
-    printStats(testStats);
-
-    if (found) {
-        std::cout << "[Main] Path found! Map with path overlay:\n";
-        gridMap.clearMarkers();
+    if (pathfinder.findPath(start, goal, testPath, &testStats)) {
+        printStats(testStats);
+        std::cout << "[Main] Path found! Map overlay:\n";
         gridMap.print(&testPath);
         std::cout << "\n";
+    } else {
+        std::cerr << "[Main] A* could not find a path!\n";
     }
 
     // --- Setup Behavior Tree ---
     BT::BehaviorTreeFactory factory;
-
-    // Register ALL custom nodes
     registerNavigationNodes(factory, &pathfinder, &gridMap);
 
-    // Also register built-in nodes we need (they're auto-registered in v4 but explicit is safer)
-    // These are standard nodes from BehaviorTree.CPP
-
-    // --- Create blackboard ---
     auto blackboard = BT::Blackboard::create();
-
-    // Set initial blackboard values
     blackboard->set("grid_map", &gridMap);
     blackboard->set("agent_x", start.x);
     blackboard->set("agent_y", start.y);
@@ -197,104 +133,74 @@ int main(int argc, char* argv[]) {
     blackboard->set("agent_heading", 0.0);
     blackboard->set("wait_count", 0);
 
-    // --- Load behavior tree from XML ---
-    std::cout << "[Main] Loading behavior tree from: " << treeFile << "\n";
-
+    // --- Load behavior tree ---
+    std::cout << "[Main] Loading behavior tree: " << treeFile << "\n";
     BT::Tree tree;
     try {
         tree = factory.createTreeFromFile(treeFile, blackboard);
     } catch (const std::exception& e) {
-        std::cerr << "[Main] ERROR loading tree: " << e.what() << "\n";
-        std::cerr << "[Main] Falling back to programmatic tree creation.\n";
-        // More details in the error message about Groot2 compatibility
+        std::cerr << "[Main] ERROR: " << e.what() << "\n";
         return 1;
     }
 
-    // --- Setup loggers ---
-    // Console logger for debugging
+    // Console logger
     BT::StdCoutLogger coutLogger(tree);
 
-    // ZMQ publisher for Groot2 real-time monitoring
-    // Groot2 connects to tcp://localhost:1667 by default
-    BT::PublisherZMQ zmqPublisher(tree, 1667, 1668);
+    std::cout << "\n[Main] ========================================" << std::endl;
+    std::cout << "[Main] Behavior Tree Execution Starting!" << std::endl;
+    std::cout << "[Main] ========================================\n" << std::endl;
 
-    std::cout << "\n[Main] ========================================\n";
-    std::cout << "[Main] Behavior Tree Execution Starting!\n";
-    std::cout << "[Main] Groot2 ZMQ Publisher: tcp://*:1667\n";
-    std::cout << "[Main] Open Groot2 → Connect to monitor live.\n";
-    std::cout << "[Main] ========================================\n\n";
-
-    // --- Main execution loop ---
+    // --- Execution loop ---
     const int kMaxTicks = 200;
     int tick = 0;
-
     auto status = BT::NodeStatus::RUNNING;
-    while (status == BT::NodeStatus::RUNNING && tick < kMaxTicks) {
-        std::cout << "\n--- Tick " << tick << " ---\n";
 
+    while (status == BT::NodeStatus::RUNNING && tick < kMaxTicks) {
         status = tree.tickWhileRunning();
 
-        // Print agent position
-        auto ax = blackboard->get<int>("agent_x");
-        auto ay = blackboard->get<int>("agent_y");
-        if (ax && ay) {
-            std::cout << "  Agent @ (" << ax.value() << ", " << ay.value() << ")\n";
-        }
+        // Show agent position
+        int ax = 0, ay = 0;
+        safeGet(blackboard, "agent_x", ax);
+        safeGet(blackboard, "agent_y", ay);
+        std::cout << "[Tick " << tick << "] Agent @ (" << ax << ", " << ay << ")\n";
 
-        // Print path progress
-        auto pathIdx = blackboard->get<int>("path_index");
-        auto pathOpt = blackboard->get<std::vector<Point>>("path");
-        if (pathIdx && pathOpt) {
-            std::cout << "  Path progress: " << pathIdx.value() << "/"
-                      << pathOpt.value().size() << "\n";
-        }
+        // Show path progress
+        int pathIdx = 0;
+        Path path;
+        safeGet(blackboard, "path_index", pathIdx);
+        safeGet(blackboard, "path", path);
+        std::cout << "  Path: " << pathIdx << "/" << path.size() << "\n";
 
-        // Check if target reached
-        auto reached = blackboard->get<bool>("target_reached");
-
+        // Map visualization
         gridMap.clearMarkers();
-        // Mark visited path positions
-        if (pathOpt && pathIdx) {
-            const auto& path = pathOpt.value();
-            int idx = pathIdx.value();
-            // Mark remaining path
-            for (std::size_t i = static_cast<std::size_t>(std::max(0, idx));
+        if (!path.empty()) {
+            for (std::size_t i = static_cast<std::size_t>(std::max(0, pathIdx));
                  i < path.size(); ++i) {
                 gridMap.setCellType(path[i], CellType::PATH);
             }
         }
-
-        // Mark current agent position
-        if (ax && ay) {
-            gridMap.setCellType(ax.value(), ay.value(), CellType::VISITED);
-        }
-
+        gridMap.setCellType(ax, ay, CellType::VISITED);
         gridMap.print();
         std::cout << std::endl;
 
-        // Small delay for visualization
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
-
+        std::this_thread::sleep_for(std::chrono::milliseconds(250));
         ++tick;
     }
 
     // --- Final report ---
-    std::cout << "\n[Main] ========================================\n";
-    std::cout << "[Main] Execution complete after " << tick << " ticks.\n";
+    int finalX = 0, finalY = 0;
+    safeGet(blackboard, "agent_x", finalX);
+    safeGet(blackboard, "agent_y", finalY);
+
+    std::cout << "\n[Main] ========================================" << std::endl;
+    std::cout << "[Main] Done in " << tick << " ticks." << std::endl;
     std::cout << "[Main] Final status: "
               << (status == BT::NodeStatus::SUCCESS ? "SUCCESS" :
                   status == BT::NodeStatus::FAILURE ? "FAILURE" : "RUNNING")
-              << "\n";
-
-    auto finalAx = blackboard->get<int>("agent_x");
-    auto finalAy = blackboard->get<int>("agent_y");
-    if (finalAx && finalAy) {
-        std::cout << "[Main] Final agent position: ("
-                  << finalAx.value() << ", " << finalAy.value() << ")\n";
-        std::cout << "[Main] Target was: (" << goal.x << ", " << goal.y << ")\n";
-    }
-
-    std::cout << "[Main] ========================================\n";
+              << std::endl;
+    std::cout << "[Main] Final position: (" << finalX << ", " << finalY << ")" << std::endl;
+    std::cout << "[Main] Target was:     (" << goal.x << ", " << goal.y << ")" << std::endl;
+    std::cout << "[Main] ========================================" << std::endl;
 
     return (status == BT::NodeStatus::SUCCESS) ? 0 : 1;
 }

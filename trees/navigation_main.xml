@@ -1,158 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!--
-  Navigation Main Behavior Tree
-  ==============================
-  Primary behavior tree for autonomous navigation using A* pathfinding.
-
-  How to open in Groot2:
-    1. Launch Groot2
-    2. File → Load Tree → Select this file
-
-  Live monitoring:
-    1. Run: ./navigation_demo
-    2. In Groot2: Monitor → Connect → tcp://localhost:1667
-
-  Algorithm: A* (A-Star) Pathfinding
-    f(n) = g(n) + h(n)
-    Heuristic: Octile distance (optimal for 8-directional grids)
-    Reference: Hart, Nilsson & Raphael (1968)
--->
-
-<root BTCPP_format="4">
-
-  <!-- ============================================================ -->
-  <!-- Main Navigation Tree                                         -->
-  <!-- ============================================================ -->
-  <BehaviorTree ID="NavigationMain">
-
-    <!-- Repeat until the agent successfully reaches the target -->
-    <RetryUntilSuccessful num_attempts="-1">
-
-      <ReactiveSequence name="MainSequence">
-
-        <!-- STEP 1: Update agent position from sensors -->
-        <UpdateAgentPosition name="UpdateSensors"/>
-
-        <!-- STEP 2: Verify we have a target -->
-        <HasTarget name="CheckTarget"/>
-
-        <!-- STEP 3: Navigate to target -->
-        <Sequence name="NavigateToTarget">
-
-          <!-- 3a: Compute optimal A* path -->
-          <ComputePath name="ComputeAStarPath" algorithm="astar"/>
-
-          <!-- 3b: Follow the computed path (subtree) -->
-          <SubTree ID="FollowPath"/>
-
-          <!-- 3c: Confirm arrival -->
-          <IsTargetReached name="VerifyArrival" reach_threshold="1.5"/>
-
-        </Sequence>
-
-      </ReactiveSequence>
-
-    </RetryUntilSuccessful>
-
-  </BehaviorTree>
-
-  <!-- ============================================================ -->
-  <!-- FollowPath Subtree                                           -->
-  <!-- ============================================================ -->
+<root BTCPP_format="4" main_tree_to_execute="NavigationMain">
   <BehaviorTree ID="FollowPath">
-
     <ReactiveSequence name="FollowPathLoop">
-
-      <!-- Check we still have waypoints remaining -->
       <HasPath name="HasRemainingPath"/>
-
-      <!-- Is the path ahead clear? (invert IsPathBlocked) -->
       <Inverter name="PathClear">
         <IsPathBlocked name="CheckNextBlocked"/>
       </Inverter>
-
-      <!-- Move or handle obstacle -->
       <Fallback name="MoveOrHandleObstacle">
-
-        <!-- Branch A: Obstacle detected → wait with backoff → recompute -->
         <Sequence name="HandleObstacle">
-          <IsObstacleNearby name="ObstacleDetected" scan_radius="1"/>
-          <WaitAtObstacle name="BackoffWait" wait_max="5"/>
+          <IsObstacleNearby name="ObstacleDetected"
+                            scan_radius="1"/>
+          <WaitAtObstacle name="BackoffWait"
+                          wait_max="5"/>
           <RecomputePath name="RecomputeAfterWait"/>
         </Sequence>
-
-        <!-- Branch B: Normal step-by-step movement -->
         <Sequence name="NormalMovement">
-          <MoveToNextWaypoint name="StepToWaypoint" speed="1.0"/>
+          <MoveToNextWaypoint name="StepToWaypoint"
+                              speed="1.0"/>
         </Sequence>
-
-        <!-- Branch C: Direct movement fallback (no planned path) -->
         <MoveToTarget name="DirectMoveFallback"/>
-
       </Fallback>
-
     </ReactiveSequence>
-
   </BehaviorTree>
 
-  <!-- ============================================================ -->
-  <!-- Obstacle Avoidance Subtree                                   -->
-  <!-- ============================================================ -->
+  <BehaviorTree ID="NavigationMain">
+    <RetryUntilSuccessful num_attempts="-1">
+      <ReactiveSequence name="MainSequence">
+        <UpdateAgentPosition name="UpdateSensors"/>
+        <HasTarget name="CheckTarget"/>
+        <Sequence name="NavigateToTarget">
+          <ComputePath name="ComputeAStarPath"
+                       algorithm="astar"/>
+          <SubTree ID="FollowPath"/>
+          <IsTargetReached name="VerifyArrival"
+                           reach_threshold="1.5"/>
+        </Sequence>
+      </ReactiveSequence>
+    </RetryUntilSuccessful>
+  </BehaviorTree>
+
   <BehaviorTree ID="ObstacleAvoidance">
-
     <ReactiveSequence name="ObstacleHandling">
-
-      <!-- Still have waypoints? -->
       <HasPath name="HasWaypoints"/>
-
       <Fallback name="MoveSafely">
-
-        <!-- Priority 1: Obstacle avoidance -->
         <KeepRunningUntilFailure>
           <Sequence name="AvoidIfNeeded">
-
-            <IsObstacleNearby name="ScanForObstacles" scan_radius="2"/>
-
+            <IsObstacleNearby name="ScanForObstacles"
+                              scan_radius="2"/>
             <Fallback name="AvoidanceStrategy">
-
-              <!-- Strategy A: Rotate → check forward clear → move -->
               <Sequence name="RotateAndMove">
                 <RotateTowardTarget name="FaceTarget"/>
-
-                <!-- Is forward clear? Invert IsPathBlocked -->
                 <Inverter name="ForwardClear">
                   <IsPathBlocked name="CheckForwardBlocked"/>
                 </Inverter>
-
-                <MoveToNextWaypoint name="MoveAfterRotate"/>
+                <MoveToNextWaypoint name="MoveAfterRotate"
+                                    speed=""/>
               </Sequence>
-
-              <!-- Strategy B: Recompute path -->
               <Sequence name="ReplanPath">
                 <RecomputePath name="AStarReplan"/>
               </Sequence>
-
-              <!-- Strategy C: Wait with exponential backoff -->
-              <WaitAtObstacle name="ExponentialBackoff" wait_max="5"/>
-
+              <WaitAtObstacle name="ExponentialBackoff"
+                              wait_max="5"/>
             </Fallback>
-
           </Sequence>
         </KeepRunningUntilFailure>
-
-        <!-- Priority 2: Normal movement when path is clear -->
         <Sequence name="NormalStep">
           <Inverter name="IsClear">
             <IsPathBlocked name="CheckClear"/>
           </Inverter>
-          <MoveToNextWaypoint name="StepForward" speed="1.0"/>
+          <MoveToNextWaypoint name="StepForward"
+                              speed="1.0"/>
         </Sequence>
-
       </Fallback>
-
     </ReactiveSequence>
-
   </BehaviorTree>
+
+  <!-- Description of Node Models (used by Groot) -->
+  <TreeNodesModel>
+    <Action ID="ComputePath"
+            editable="true">
+      <input_port name="algorithm"/>
+    </Action>
+    <Condition ID="HasPath"
+               editable="true"/>
+    <Condition ID="HasTarget"
+               editable="true"/>
+    <Condition ID="IsObstacleNearby"
+               editable="true">
+      <input_port name="scan_radius"/>
+    </Condition>
+    <Condition ID="IsPathBlocked"
+               editable="true"/>
+    <Condition ID="IsTargetReached"
+               editable="true">
+      <input_port name="reach_threshold"/>
+    </Condition>
+    <Action ID="MoveToNextWaypoint"
+            editable="true">
+      <input_port name="speed"/>
+    </Action>
+    <Action ID="MoveToTarget"
+            editable="true"/>
+    <Action ID="RecomputePath"
+            editable="true"/>
+    <Action ID="RotateTowardTarget"
+            editable="true"/>
+    <Action ID="UpdateAgentPosition"
+            editable="true"/>
+    <Action ID="WaitAtObstacle"
+            editable="true">
+      <input_port name="wait_max"/>
+    </Action>
+  </TreeNodesModel>
 
 </root>

@@ -11,6 +11,21 @@
 namespace nav_bt {
 
 // ============================================================
+// Blackboard helper: safe get that returns false on error
+// ============================================================
+namespace {
+template <typename T>
+bool safeGet(BT::Blackboard::Ptr bb, const std::string& key, T& out) {
+    try {
+        out = bb->get<T>(key);
+        return true;
+    } catch (...) {
+        return false;
+    }
+}
+}  // namespace
+
+// ============================================================
 // HasTarget
 // ============================================================
 HasTarget::HasTarget(const std::string& name, const BT::NodeConfig& config)
@@ -26,20 +41,17 @@ BT::PortsList HasTarget::providedPorts() {
 
 BT::NodeStatus HasTarget::tick() {
     // Check explicit flag first
-    auto targetSet = config().blackboard->get<bool>("target_set");
-    if (targetSet.has_value() && targetSet.value()) {
+    bool targetSet = false;
+    if (safeGet(config().blackboard, "target_set", targetSet) && targetSet) {
         return BT::NodeStatus::SUCCESS;
     }
 
-    // Check coordinates
-    auto tx = config().blackboard->get<int>("target_x");
-    auto ty = config().blackboard->get<int>("target_y");
-
-    if (tx.has_value() && ty.has_value()) {
-        // Valid coordinates — target is set
+    int tx = 0, ty = 0;
+    bool hasX = safeGet(config().blackboard, "target_x", tx);
+    bool hasY = safeGet(config().blackboard, "target_y", ty);
+    if (hasX && hasY) {
         return BT::NodeStatus::SUCCESS;
     }
-
     return BT::NodeStatus::FAILURE;
 }
 
@@ -56,23 +68,17 @@ BT::PortsList HasPath::providedPorts() {
 }
 
 BT::NodeStatus HasPath::tick() {
-    // Check if path exists on blackboard
-    auto pathOpt = config().blackboard->get<std::vector<Point>>("path");
-    if (!pathOpt.has_value()) {
+    Path path;
+    if (!safeGet(config().blackboard, "path", path)) {
         return BT::NodeStatus::FAILURE;
     }
 
-    const auto& path = pathOpt.value();
     int index = 0;
-    auto idxOpt = config().blackboard->get<int>("path_index");
-    if (idxOpt.has_value()) {
-        index = idxOpt.value();
-    }
+    safeGet(config().blackboard, "path_index", index);
 
     if (index >= 0 && static_cast<std::size_t>(index) < path.size()) {
         return BT::NodeStatus::SUCCESS;
     }
-
     return BT::NodeStatus::FAILURE;
 }
 
@@ -93,23 +99,22 @@ BT::PortsList IsTargetReached::providedPorts() {
 }
 
 BT::NodeStatus IsTargetReached::tick() {
-    auto ax = config().blackboard->get<int>("agent_x");
-    auto ay = config().blackboard->get<int>("agent_y");
-    auto tx = config().blackboard->get<int>("target_x");
-    auto ty = config().blackboard->get<int>("target_y");
-    auto threshold = config().blackboard->get<double>("reach_threshold");
-
-    if (!ax || !ay || !tx || !ty) {
+    int ax = 0, ay = 0, tx = 0, ty = 0;
+    if (!safeGet(config().blackboard, "agent_x", ax) ||
+        !safeGet(config().blackboard, "agent_y", ay) ||
+        !safeGet(config().blackboard, "target_x", tx) ||
+        !safeGet(config().blackboard, "target_y", ty)) {
         return BT::NodeStatus::FAILURE;
     }
 
-    double dx = static_cast<double>(ax.value() - tx.value());
-    double dy = static_cast<double>(ay.value() - ty.value());
+    double threshold = 1.5;
+    safeGet(config().blackboard, "reach_threshold", threshold);
+
+    double dx = static_cast<double>(ax - tx);
+    double dy = static_cast<double>(ay - ty);
     double dist = std::sqrt(dx * dx + dy * dy);
 
-    double thresh = threshold.value_or(1.5);
-
-    return (dist <= thresh) ? BT::NodeStatus::SUCCESS : BT::NodeStatus::FAILURE;
+    return (dist <= threshold) ? BT::NodeStatus::SUCCESS : BT::NodeStatus::FAILURE;
 }
 
 // ============================================================
@@ -125,30 +130,21 @@ BT::PortsList IsPathBlocked::providedPorts() {
 }
 
 BT::NodeStatus IsPathBlocked::tick() {
-    auto pathOpt = config().blackboard->get<std::vector<Point>>("path");
-    auto idxOpt  = config().blackboard->get<int>("path_index");
-    auto mapOpt  = config().blackboard->get<GridMap*>("grid_map");
+    Path path;
+    int index = 0;
+    GridMap* map = nullptr;
 
-    if (!pathOpt || !idxOpt || !mapOpt) {
+    if (!safeGet(config().blackboard, "path", path) ||
+        !safeGet(config().blackboard, "path_index", index) ||
+        !safeGet(config().blackboard, "grid_map", map) || !map) {
         return BT::NodeStatus::FAILURE;
     }
 
-    const auto& path = pathOpt.value();
-    int index = idxOpt.value();
-    GridMap* map = mapOpt.value();
-
-    if (map == nullptr) {
-        return BT::NodeStatus::FAILURE;
-    }
-
-    // Check the next waypoint
     if (index >= 0 && static_cast<std::size_t>(index) < path.size()) {
         const Point& next = path[static_cast<std::size_t>(index)];
         return map->isTraversable(next) ? BT::NodeStatus::FAILURE
                                          : BT::NodeStatus::SUCCESS;
     }
-
-    // No more waypoints = not blocked, just done
     return BT::NodeStatus::FAILURE;
 }
 
@@ -167,33 +163,28 @@ BT::PortsList IsObstacleNearby::providedPorts() {
 }
 
 BT::NodeStatus IsObstacleNearby::tick() {
-    auto ax = config().blackboard->get<int>("agent_x");
-    auto ay = config().blackboard->get<int>("agent_y");
-    auto mapOpt = config().blackboard->get<GridMap*>("grid_map");
-    auto radiusOpt = config().blackboard->get<int>("scan_radius");
+    int ax = 0, ay = 0;
+    GridMap* map = nullptr;
 
-    if (!ax || !ay || !mapOpt) {
+    if (!safeGet(config().blackboard, "agent_x", ax) ||
+        !safeGet(config().blackboard, "agent_y", ay) ||
+        !safeGet(config().blackboard, "grid_map", map) || !map) {
         return BT::NodeStatus::FAILURE;
     }
 
-    GridMap* map = mapOpt.value();
-    if (map == nullptr) {
-        return BT::NodeStatus::FAILURE;
-    }
-
-    int radius = radiusOpt.value_or(1);
+    int radius = 1;
+    safeGet(config().blackboard, "scan_radius", radius);
 
     for (int dx = -radius; dx <= radius; ++dx) {
         for (int dy = -radius; dy <= radius; ++dy) {
-            if (dx == 0 && dy == 0) continue;  // skip self
-            int nx = ax.value() + dx;
-            int ny = ay.value() + dy;
+            if (dx == 0 && dy == 0) continue;
+            int nx = ax + dx;
+            int ny = ay + dy;
             if (!map->isTraversable(nx, ny)) {
                 return BT::NodeStatus::SUCCESS;
             }
         }
     }
-
     return BT::NodeStatus::FAILURE;
 }
 

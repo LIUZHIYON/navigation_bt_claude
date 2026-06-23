@@ -6,6 +6,11 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+# MSVC: treat all source as UTF-8 (fixes lexy raw string encoding errors)
+if(MSVC)
+    add_compile_options(/utf-8)
+endif()
+
 # ============================================================
 # BehaviorTree.CPP - Fetch or find
 # ============================================================
@@ -13,8 +18,8 @@ include(FetchContent)
 
 FetchContent_Declare(
     behaviortree_cpp
-    GIT_REPOSITORY https://github.com/BehaviorTree/BehaviorTree.CPP.git
-    GIT_TAG        v4.6.2
+    GIT_REPOSITORY  https://github.com/BehaviorTree/BehaviorTree.CPP.git
+    GIT_TAG         4.0.2
 )
 FetchContent_MakeAvailable(behaviortree_cpp)
 

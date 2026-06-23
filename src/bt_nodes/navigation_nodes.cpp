@@ -4,10 +4,15 @@
  */
 
 #include "bt_nodes/navigation_nodes.h"
+#include "bt_nodes/condition_nodes.h"
 
 #include <cmath>
 #include <iostream>
 #include <algorithm>
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 namespace nav_bt {
 
@@ -55,18 +60,17 @@ BT::PortsList UpdateAgentPosition::providedPorts() {
 BT::NodeStatus UpdateAgentPosition::tick() {
     // In a real system, read from sensors/odometry
     // For demo: read from blackboard if already set
-    auto ax = config().blackboard->get<int>("agent_x");
-    auto ay = config().blackboard->get<int>("agent_y");
-
-    if (!ax.has_value() || !ay.has_value()) {
-        // First initialization — use port values
+    int ax = 0, ay = 0;
+    try {
+        ax = config().blackboard->get<int>("agent_x");
+        ay = config().blackboard->get<int>("agent_y");
+    } catch (...) {
+        // First initialization: use port values
         auto xOpt = getInput<int>("x");
         auto yOpt = getInput<int>("y");
         config().blackboard->set("agent_x", xOpt.value_or(0));
         config().blackboard->set("agent_y", yOpt.value_or(0));
     }
-    // Otherwise leave as-is (already updated by movement nodes)
-
     return BT::NodeStatus::SUCCESS;
 }
 
@@ -83,26 +87,31 @@ BT::PortsList ComputePath::providedPorts() {
 }
 
 BT::NodeStatus ComputePath::tick() {
-    auto ax = config().blackboard->get<int>("agent_x");
-    auto ay = config().blackboard->get<int>("agent_y");
-    auto tx = config().blackboard->get<int>("target_x");
-    auto ty = config().blackboard->get<int>("target_y");
-    auto mapOpt = config().blackboard->get<GridMap*>("grid_map");
-
-    if (!ax || !ay || !tx || !ty) {
-        std::cerr << "[ComputePath] ERROR: Missing agent or target position.\n";
+    int ax, ay, tx, ty;
+    try {
+        ax = config().blackboard->get<int>("agent_x");
+        ay = config().blackboard->get<int>("agent_y");
+        tx = config().blackboard->get<int>("target_x");
+        ty = config().blackboard->get<int>("target_y");
+    } catch (const std::exception& e) {
+        std::cerr << "[ComputePath] ERROR: Missing data: " << e.what() << "\n";
         return BT::NodeStatus::FAILURE;
     }
 
-    Point start(ax.value(), ay.value());
-    Point goal(tx.value(), ty.value());
+    Point start(ax, ay);
+    Point goal(tx, ty);
 
     // Use the provided pathfinder or create a temporary one
     AStarPathfinder localFinder;
     AStarPathfinder* finder = pathfinder_ ? pathfinder_ : &localFinder;
 
-    if (mapOpt.has_value() && mapOpt.value()) {
-        finder->setMap(mapOpt.value());
+    GridMap* map = nullptr;
+    try {
+        map = config().blackboard->get<GridMap*>("grid_map");
+    } catch (...) {}
+
+    if (map) {
+        finder->setMap(map);
     }
 
     std::cout << "[ComputePath] Computing A* path from " << start
@@ -147,23 +156,20 @@ BT::NodeStatus MoveToNextWaypoint::onStart() {
     auto speedOpt = getInput<double>("speed");
     speed_ = speedOpt.value_or(1.0);
     progress_ = 0.0;
-
     std::cout << "[MoveToNextWaypoint] Starting movement...\n";
     return BT::NodeStatus::RUNNING;
 }
 
 BT::NodeStatus MoveToNextWaypoint::onRunning() {
-    auto pathOpt = config().blackboard->get<std::vector<Point>>("path");
-    auto idxOpt  = config().blackboard->get<int>("path_index");
-    auto mapOpt  = config().blackboard->get<GridMap*>("grid_map");
-
-    if (!pathOpt || !idxOpt) {
-        std::cerr << "[MoveToNextWaypoint] ERROR: No path data.\n";
+    Path path;
+    int index = 0;
+    try {
+        path  = config().blackboard->get<Path>("path");
+        index = config().blackboard->get<int>("path_index");
+    } catch (const std::exception& e) {
+        std::cerr << "[MoveToNextWaypoint] ERROR: No path data: " << e.what() << "\n";
         return BT::NodeStatus::FAILURE;
     }
-
-    const auto& path = pathOpt.value();
-    int index = idxOpt.value();
 
     // Check if we've reached the end
     if (index < 0 || static_cast<std::size_t>(index) >= path.size()) {
@@ -174,26 +180,25 @@ BT::NodeStatus MoveToNextWaypoint::onRunning() {
     const Point& waypoint = path[static_cast<std::size_t>(index)];
 
     // Check if waypoint is traversable
-    if (mapOpt.has_value() && mapOpt.value()) {
-        if (!mapOpt.value()->isTraversable(waypoint)) {
-            std::cerr << "[MoveToNextWaypoint] Waypoint " << waypoint
-                      << " is blocked!\n";
-            return BT::NodeStatus::FAILURE;
-        }
+    GridMap* map = nullptr;
+    try { map = config().blackboard->get<GridMap*>("grid_map"); } catch (...) {}
+    if (map && !map->isTraversable(waypoint)) {
+        std::cerr << "[MoveToNextWaypoint] Waypoint " << waypoint << " is blocked!\n";
+        return BT::NodeStatus::FAILURE;
     }
 
     // Advance progress
     progress_ += speed_;
 
     if (progress_ >= 1.0) {
-        // Move complete — update agent position to waypoint
+        // Move complete
         config().blackboard->set("agent_x", waypoint.x);
         config().blackboard->set("agent_y", waypoint.y);
         config().blackboard->set("path_index", index + 1);
 
+        int remaining = static_cast<int>(path.size()) - index - 1;
         std::cout << "[MoveToNextWaypoint] Moved to waypoint #" << index
-                  << " " << waypoint << " (remaining: "
-                  << (static_cast<int>(path.size()) - index - 1) << ")\n";
+                  << " " << waypoint << " (remaining: " << remaining << ")\n";
         return BT::NodeStatus::SUCCESS;
     }
 
@@ -221,20 +226,15 @@ BT::NodeStatus MoveToTarget::onStart() {
 }
 
 BT::NodeStatus MoveToTarget::onRunning() {
-    auto ax = config().blackboard->get<int>("agent_x");
-    auto ay = config().blackboard->get<int>("agent_y");
-    auto tx = config().blackboard->get<int>("target_x");
-    auto ty = config().blackboard->get<int>("target_y");
-    auto mapOpt = config().blackboard->get<GridMap*>("grid_map");
-
-    if (!ax || !ay || !tx || !ty) {
+    int cx, cy, gx, gy;
+    try {
+        cx = config().blackboard->get<int>("agent_x");
+        cy = config().blackboard->get<int>("agent_y");
+        gx = config().blackboard->get<int>("target_x");
+        gy = config().blackboard->get<int>("target_y");
+    } catch (const std::exception&) {
         return BT::NodeStatus::FAILURE;
     }
-
-    int cx = ax.value();
-    int cy = ay.value();
-    int gx = tx.value();
-    int gy = ty.value();
 
     // Already at target
     if (cx == gx && cy == gy) {
@@ -245,33 +245,32 @@ BT::NodeStatus MoveToTarget::onRunning() {
     // Simple gradient-descent: step toward target
     int dx = (gx > cx) ? 1 : (gx < cx) ? -1 : 0;
     int dy = (gy > cy) ? 1 : (gy < cy) ? -1 : 0;
-
     int nx = cx + dx;
     int ny = cy + dy;
 
     // Check if next cell is traversable
-    if (mapOpt.has_value() && mapOpt.value()) {
-        if (!mapOpt.value()->isTraversable(nx, ny)) {
-            // Try alternative directions
-            bool moved = false;
-            for (const auto& dir : kCardinalDirs) {
-                int ax2 = cx + dir[0];
-                int ay2 = cy + dir[1];
-                if (mapOpt.value()->isTraversable(ax2, ay2)) {
-                    // Check if this direction reduces distance
-                    int newDist = std::abs(ax2 - gx) + std::abs(ay2 - gy);
-                    int curDist = std::abs(cx - gx) + std::abs(cy - gy);
-                    if (newDist < curDist) {
-                        nx = ax2; ny = ay2;
-                        moved = true;
-                        break;
-                    }
+    GridMap* map = nullptr;
+    try { map = config().blackboard->get<GridMap*>("grid_map"); } catch (...) {}
+
+    if (map && !map->isTraversable(nx, ny)) {
+        // Try alternative directions
+        bool moved = false;
+        for (const auto& dir : kCardinalDirs) {
+            int ax2 = cx + dir[0];
+            int ay2 = cy + dir[1];
+            if (map->isTraversable(ax2, ay2)) {
+                int newDist = std::abs(ax2 - gx) + std::abs(ay2 - gy);
+                int curDist = std::abs(cx - gx) + std::abs(cy - gy);
+                if (newDist < curDist) {
+                    nx = ax2; ny = ay2;
+                    moved = true;
+                    break;
                 }
             }
-            if (!moved) {
-                std::cerr << "[MoveToTarget] Stuck — all directions blocked.\n";
-                return BT::NodeStatus::FAILURE;
-            }
+        }
+        if (!moved) {
+            std::cerr << "[MoveToTarget] Stuck - all directions blocked.\n";
+            return BT::NodeStatus::FAILURE;
         }
     }
 
@@ -280,11 +279,9 @@ BT::NodeStatus MoveToTarget::onRunning() {
 
     std::cout << "[MoveToTarget] Simple step to (" << nx << ", " << ny << ")\n";
 
-    // Check if we've reached the target
     if (nx == gx && ny == gy) {
         return BT::NodeStatus::SUCCESS;
     }
-
     return BT::NodeStatus::RUNNING;
 }
 
@@ -307,30 +304,35 @@ BT::NodeStatus RotateTowardTarget::onStart() {
 }
 
 BT::NodeStatus RotateTowardTarget::onRunning() {
-    auto ax = config().blackboard->get<int>("agent_x");
-    auto ay = config().blackboard->get<int>("agent_y");
-    auto tx = config().blackboard->get<int>("target_x");
-    auto ty = config().blackboard->get<int>("target_y");
-    auto heading = config().blackboard->get<double>("agent_heading");
-
-    if (!ax || !ay || !tx || !ty) {
+    int ax, ay, tx, ty;
+    try {
+        ax = config().blackboard->get<int>("agent_x");
+        ay = config().blackboard->get<int>("agent_y");
+        tx = config().blackboard->get<int>("target_x");
+        ty = config().blackboard->get<int>("target_y");
+    } catch (const std::exception&) {
         return BT::NodeStatus::FAILURE;
     }
 
-    // Compute desired heading (angle to target)
-    double desired = std::atan2(
-        static_cast<double>(ty.value() - ay.value()),
-        static_cast<double>(tx.value() - ax.value())
-    );
+    double current = 0.0;
+    try {
+        current = config().blackboard->get<double>("agent_heading");
+    } catch (...) {
+        config().blackboard->set("agent_heading", 0.0);
+    }
 
-    double current = heading.value_or(0.0);
+    // Compute desired heading
+    double desired = std::atan2(
+        static_cast<double>(ty - ay),
+        static_cast<double>(tx - ax)
+    );
 
     // Normalize angle difference to [-PI, PI]
     double diff = desired - current;
     while (diff >  M_PI) diff -= 2.0 * M_PI;
     while (diff < -M_PI) diff += 2.0 * M_PI;
 
-    const double kAngleThreshold = 0.05;  // radians (~3 degrees)
+    const double kAngleThreshold = 0.05;
 
     if (std::abs(diff) < kAngleThreshold) {
         config().blackboard->set("agent_heading", desired);
@@ -339,14 +341,13 @@ BT::NodeStatus RotateTowardTarget::onRunning() {
     }
 
     // Rotate with a max rate
-    const double kMaxRotation = 0.3;  // radians per tick
+    const double kMaxRotation = 0.3;
     double step = std::clamp(diff, -kMaxRotation, kMaxRotation);
     double newHeading = current + step;
     while (newHeading >  M_PI) newHeading -= 2.0 * M_PI;
     while (newHeading < -M_PI) newHeading += 2.0 * M_PI;
 
     config().blackboard->set("agent_heading", newHeading);
-
     std::cout << "[RotateTowardTarget] Rotating: heading=" << newHeading
               << " (diff=" << diff << ")\n";
     return BT::NodeStatus::RUNNING;
@@ -369,10 +370,9 @@ BT::PortsList WaitAtObstacle::providedPorts() {
 }
 
 BT::NodeStatus WaitAtObstacle::onStart() {
-    auto waitCount = config().blackboard->get<int>("wait_count");
-    int count = waitCount.value_or(0);
+    int count = 0;
+    try { count = config().blackboard->get<int>("wait_count"); } catch (...) {}
 
-    // Exponential backoff: 1, 2, 4, 8, 16
     waitTicks_ = 1 << count;
 
     auto maxOpt = getInput<int>("wait_max");
@@ -385,7 +385,6 @@ BT::NodeStatus WaitAtObstacle::onStart() {
     }
 
     config().blackboard->set("wait_count", count + 1);
-
     std::cout << "[WaitAtObstacle] Waiting " << waitTicks_ << " ticks "
               << "(attempt " << (count + 1) << "/" << maxWaitTicks_ << ")\n";
     return BT::NodeStatus::RUNNING;
@@ -396,7 +395,6 @@ BT::NodeStatus WaitAtObstacle::onRunning() {
         --waitTicks_;
         return BT::NodeStatus::RUNNING;
     }
-
     std::cout << "[WaitAtObstacle] Wait complete.\n";
     return BT::NodeStatus::SUCCESS;
 }
@@ -417,26 +415,26 @@ BT::PortsList RecomputePath::providedPorts() {
 }
 
 BT::NodeStatus RecomputePath::tick() {
-    auto ax = config().blackboard->get<int>("agent_x");
-    auto ay = config().blackboard->get<int>("agent_y");
-    auto tx = config().blackboard->get<int>("target_x");
-    auto ty = config().blackboard->get<int>("target_y");
-    auto mapOpt = config().blackboard->get<GridMap*>("grid_map");
-
-    if (!ax || !ay || !tx || !ty) {
-        std::cerr << "[RecomputePath] ERROR: Missing position data.\n";
+    int ax, ay, tx, ty;
+    try {
+        ax = config().blackboard->get<int>("agent_x");
+        ay = config().blackboard->get<int>("agent_y");
+        tx = config().blackboard->get<int>("target_x");
+        ty = config().blackboard->get<int>("target_y");
+    } catch (const std::exception& e) {
+        std::cerr << "[RecomputePath] ERROR: " << e.what() << "\n";
         return BT::NodeStatus::FAILURE;
     }
 
-    Point start(ax.value(), ay.value());
-    Point goal(tx.value(), ty.value());
+    Point start(ax, ay);
+    Point goal(tx, ty);
 
     AStarPathfinder localFinder;
     AStarPathfinder* finder = pathfinder_ ? pathfinder_ : &localFinder;
 
-    if (mapOpt.has_value() && mapOpt.value()) {
-        finder->setMap(mapOpt.value());
-    }
+    GridMap* map = nullptr;
+    try { map = config().blackboard->get<GridMap*>("grid_map"); } catch (...) {}
+    if (map) finder->setMap(map);
 
     std::cout << "[RecomputePath] Recomputing A* path from "
               << start << " to " << goal << "...\n";
@@ -462,13 +460,6 @@ BT::NodeStatus RecomputePath::tick() {
 void registerNavigationNodes(BT::BehaviorTreeFactory& factory,
                               AStarPathfinder* pathfinder,
                               GridMap* map) {
-    // Condition nodes
-    factory.registerNodeType<HasTarget>("HasTarget");
-    factory.registerNodeType<HasPath>("HasPath");
-    factory.registerNodeType<IsTargetReached>("IsTargetReached");
-    factory.registerNodeType<IsPathBlocked>("IsPathBlocked");
-    factory.registerNodeType<IsObstacleNearby>("IsObstacleNearby");
-
     // Action nodes
     factory.registerNodeType<SetTarget>("SetTarget");
     factory.registerNodeType<UpdateAgentPosition>("UpdateAgentPosition");
@@ -479,13 +470,12 @@ void registerNavigationNodes(BT::BehaviorTreeFactory& factory,
     factory.registerNodeType<WaitAtObstacle>("WaitAtObstacle");
     factory.registerNodeType<RecomputePath>("RecomputePath");
 
-    // Register shared resources as global blackboard entries
-    if (pathfinder) {
-        // Store pathfinder config via blackboard
-    }
-    if (map) {
-        // Store map pointer via blackboard
-    }
+    // Condition nodes
+    factory.registerNodeType<HasTarget>("HasTarget");
+    factory.registerNodeType<HasPath>("HasPath");
+    factory.registerNodeType<IsTargetReached>("IsTargetReached");
+    factory.registerNodeType<IsPathBlocked>("IsPathBlocked");
+    factory.registerNodeType<IsObstacleNearby>("IsObstacleNearby");
 
     std::cout << "[RegisterNodes] Registered " << 13
               << " navigation behavior tree nodes.\n";
