@@ -16,12 +16,12 @@ namespace nav_bt {
 namespace {
 template <typename T>
 bool safeGet(BT::Blackboard::Ptr bb, const std::string& key, T& out) {
-    try {
-        out = bb->get<T>(key);
-        return true;
-    } catch (...) {
-        return false;
+    const BT::Any* any = bb->getAny(key);
+    if (any && !any->empty()) {
+        try { out = any->cast<T>(); return true; }
+        catch (...) {}
     }
+    return false;
 }
 }  // namespace
 
@@ -40,16 +40,13 @@ BT::PortsList HasTarget::providedPorts() {
 }
 
 BT::NodeStatus HasTarget::tick() {
-    // Check explicit flag first
     bool targetSet = false;
     if (safeGet(config().blackboard, "target_set", targetSet) && targetSet) {
         return BT::NodeStatus::SUCCESS;
     }
-
     int tx = 0, ty = 0;
-    bool hasX = safeGet(config().blackboard, "target_x", tx);
-    bool hasY = safeGet(config().blackboard, "target_y", ty);
-    if (hasX && hasY) {
+    if (safeGet(config().blackboard, "target_x", tx) &&
+        safeGet(config().blackboard, "target_y", ty)) {
         return BT::NodeStatus::SUCCESS;
     }
     return BT::NodeStatus::FAILURE;
@@ -72,10 +69,8 @@ BT::NodeStatus HasPath::tick() {
     if (!safeGet(config().blackboard, "path", path)) {
         return BT::NodeStatus::FAILURE;
     }
-
     int index = 0;
     safeGet(config().blackboard, "path_index", index);
-
     if (index >= 0 && static_cast<std::size_t>(index) < path.size()) {
         return BT::NodeStatus::SUCCESS;
     }

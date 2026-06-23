@@ -67,8 +67,8 @@ int main(int argc, char* argv[]) {
 )" << std::endl;
 
     // --- Parse arguments ---
-    std::string treeFile = "../trees/navigation_main.xml";
-    std::string mapFile  = "../maps/sample_map.txt";
+    std::string treeFile = "trees/navigation_main.xml";
+    std::string mapFile  = "maps/sample_map.txt";
 
     if (argc > 1) treeFile = argv[1];
     if (argc > 2) mapFile  = argv[2];
