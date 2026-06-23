@@ -3,45 +3,31 @@
 <!--
   Obstacle Avoidance Subtree
   ===========================
-  A reusable subtree for reactive obstacle avoidance during navigation.
+  Reusable subtree for reactive obstacle avoidance during navigation.
 
-  This subtree can be embedded into other trees as:
+  Embed in other trees with:
     <SubTree ID="ObstacleAvoidance"/>
 
   Strategy:
     1. Scan surroundings for obstacles
     2. If obstacle detected within scan radius:
-       a. Attempt to rotate and find a clear direction
+       a. Rotate to find a clear direction
        b. If rotation fails, recompute the A* path
        c. As last resort, wait (exponential backoff)
     3. If no obstacle, proceed with normal movement
-
-  The exponential backoff prevents the agent from thrashing
-  (trying the same blocked movement repeatedly in the same tick).
 -->
 
 <root BTCPP_format="4">
 
   <BehaviorTree ID="ObstacleAvoidance">
 
-    <!--
-      ReactiveSequence: re-evaluates children each tick.
-      If the obstacle disappears, the agent immediately resumes movement.
-    -->
     <ReactiveSequence name="ObstacleHandling">
 
-      <!-- Check if we still have waypoints -->
       <HasPath name="HasWaypoints"/>
 
-      <!--
-        Fallback (selector): try children left-to-right until one succeeds.
-        Priority order:
-          1. Avoid if obstacle detected
-          2. Normal movement
-      -->
       <Fallback name="MoveSafely">
 
-        <!-- Priority 1: Obstacle avoidance -->
+        <!-- Priority 1: Obstacle avoidance loop -->
         <KeepRunningUntilFailure>
           <Sequence name="AvoidIfNeeded">
 
@@ -51,25 +37,24 @@
             <!-- Obstacle detected — choose avoidance strategy -->
             <Fallback name="AvoidanceStrategy">
 
-              <!-- Strategy A: Rotate to find clear path -->
+              <!-- Strategy A: Rotate and check if forward is clear -->
               <Sequence name="RotateAndCheck">
-                <!-- Rotate a small amount each tick until clear -->
                 <RotateTowardTarget name="OrientToTarget"/>
 
-                <!-- After rotating, check if forward is clear -->
-                <IsPathBlocked name="StillBlocked">
-                  <Inverter/>
-                </IsPathBlocked>
+                <!-- Is forward clear? Invert the "blocked" check -->
+                <Inverter name="ForwardIsClear">
+                  <IsPathBlocked name="StillBlocked"/>
+                </Inverter>
 
                 <MoveToNextWaypoint name="MoveAfterRotate"/>
               </Sequence>
 
-              <!-- Strategy B: Recompute the A* path (dynamic replanning) -->
+              <!-- Strategy B: Dynamic A* replanning -->
               <Sequence name="ReplanPath">
                 <RecomputePath name="AStarReplan"/>
               </Sequence>
 
-              <!-- Strategy C: Wait with backoff -->
+              <!-- Strategy C: Wait with exponential backoff -->
               <WaitAtObstacle name="ExponentialBackoff" wait_max="5"/>
 
             </Fallback>
@@ -77,13 +62,11 @@
           </Sequence>
         </KeepRunningUntilFailure>
 
-        <!-- Priority 2: Normal step-by-step movement -->
+        <!-- Priority 2: Normal step-by-step movement (path clear) -->
         <Sequence name="NormalStep">
-          <!-- Ensure path clearance before stepping -->
-          <IsPathBlocked name="CheckClear">
-            <Inverter/>
-          </IsPathBlocked>
-
+          <Inverter name="ClearCheck">
+            <IsPathBlocked name="CheckClear"/>
+          </Inverter>
           <MoveToNextWaypoint name="StepForward" speed="1.0"/>
         </Sequence>
 

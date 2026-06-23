@@ -3,21 +3,19 @@
 <!--
   Pathfinding Subtree
   ====================
-  A reusable subtree focused purely on computing a path using A*.
+  Reusable subtree for A* path computation.
 
-  This subtree can be embedded into other trees as:
+  Embed in other trees with:
     <SubTree ID="Pathfinding"/>
 
-  It encapsulates:
-    1. Checking that the agent has a valid target
-    2. Computing the optimal A* path
-    3. Reporting the result
+  Encapsulates:
+    1. Verify target is set
+    2. Run A* pathfinding algorithm
+    3. Validate the computed path
 
-  Algorithm: A* (A-Star) invented by Peter Hart, Nils Nilsson and Bertram Raphael
-  Published in IEEE Transactions on Systems Science and Cybernetics (1968)
+  Algorithm: A* (A-Star) — Hart, Nilsson & Raphael (1968)
     f(n) = g(n) + h(n)
-    g(n) = cost from start to node n
-    h(n) = heuristic estimate from n to goal (octile distance)
+    Heuristic: Octile distance
 -->
 
 <root BTCPP_format="4">
